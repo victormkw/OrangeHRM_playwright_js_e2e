@@ -1,12 +1,12 @@
-name: Playwright Tests
+name: Playwright Cucumber JS Tests
 on:
   push:
-    branches: [ main, master ]
+    branches: [ developer, master ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ developer, master ]
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -17,8 +17,8 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
+    - name: Run Playwright Cucumber tests
+      run: npm run
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
