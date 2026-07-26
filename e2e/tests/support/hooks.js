@@ -7,9 +7,13 @@ setDefaultTimeout(30000);
 let browser;
 
 BeforeAll(async function () {
-  // Abre o navegador Chrome/Chromium uma vez no início
-  // Dica: mude headless para 'false' para ver a tela do navegador abrindo
-  browser = await chromium.launch({ headless: false });
+  // Se estiver no GitHub Actions (CI), roda sem interface visual (headless: true)
+  // Se estiver no seu computador, abre a janela do navegador (headless: false)
+  const isCI = !!process.env.CI;
+
+  browser = await chromium.launch({ 
+    headless: isCI ? true : false 
+  });
 });
 
 Before(async function () {
