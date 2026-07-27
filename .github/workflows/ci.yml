@@ -1,7 +1,7 @@
 name: Playwright Cucumber JS Tests
 on:
   push:
-    branches: [ developer, master ]
+    branches: [ master ]
   pull_request:
     branches: [ developer, master ]
 jobs:
