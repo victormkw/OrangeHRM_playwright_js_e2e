@@ -1,0 +1,4 @@
+class dashboardPage {
+
+}
+exports = dashboardPage;

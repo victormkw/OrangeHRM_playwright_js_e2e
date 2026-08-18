@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -12,10 +11,11 @@
     "@cucumber/cucumber": "^13.2.0",
     "@playwright/test": "^1.61.1",
     "@types/node": "^26.1.1",
+    "cucumber-html-reporter": "^7.2.0",
     "ts-node": "^10.9.2"
   },
   "scripts": {
-    "test": "cucumber-js",
-    "test:foco": "cucumber-js --tags \"@foco\""
-  }
+  "test": "cucumber-js --format json:reports/cucumber_report.json && node generate-report.js",
+  "test:foco": "cucumber-js --tags \"@foco\""
+}
 }
