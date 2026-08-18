@@ -1,18 +1,19 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
 const { expect } = require('@playwright/test');
+const LoginPage = require('../pages/LoginPage');
+
 
 Given('que eu acesse a página de login', async function () {
-  // 'this.page' vem da aba criada dentro do hooks.js
-  await this.page.goto('https://opensource-demo.orangehrmlive.com/web/index.php/auth/login');
+  this.loginPage = new LoginPage(this.page);
+  await this.loginPage.navegar();
 });
 
 When('eu preencher o usuário {string} e a senha {string}', async function (usuario, senha) {
-  await this.page.locator('[name="username"]').fill(usuario);
-  await this.page.locator('[name="password"]').fill(senha);
+  await this.loginPage.preencherCredenciais(usuario, senha);
 });
 
 When('clicar no botão de login', async function () {
-  await this.page.click('button[type="submit"]');
+  await this.loginPage.clicarBotaoLogin();
 });
 
 Then('devo ver o dashboard do sistema', async function () {
@@ -48,3 +49,15 @@ Then ('deverá apresentar a mensagem de reset com sucesso', async function () {
   const mensagemResetSenha = await this.page.getByRole('heading', {name: 'Reset Password link sent successfully'});
   await expect(mensagemResetSenha).toContainText('Reset Password link sent successfully');
 });
+
+Given ('que o usuário está logado como Administrador', async function () {
+  this.loginPage = new LoginPage(this.page);
+  await this.loginPage.navegar(); 
+  await this.loginPage.preencherCredenciais('Admin', 'admin123');
+  await this.loginPage.clicarBotaoLogin();
+});
+
+Given ('navega até a tela "Admin User Management"', async function () {
+  await this.page.getByRole('link', {name: 'Admin'}).click();
+});
+
