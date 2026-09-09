@@ -56,8 +56,3 @@ Given ('que o usuário está logado como Administrador', async function () {
   await this.loginPage.preencherCredenciais('Admin', 'admin123');
   await this.loginPage.clicarBotaoLogin();
 });
-
-Given ('navega até a tela "Admin User Management"', async function () {
-  await this.page.getByRole('link', {name: 'Admin'}).click();
-});
-
