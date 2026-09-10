@@ -5,6 +5,7 @@ class AddUserPage {
         this.page = page;
         this.elementos = {
             //elementos da tela de cadastro de usuário
+            tituloAddUser: this.page.getByText('Add User'),
             campoUserRole: this.page.getByText('-- Select --').first(),
             opcaoUserRoleAdmin: this.page.getByRole('option', { name: 'Admin' }),
             opcaoUserRoleESS: this.page.getByRole('option', { name: 'ESS' }),
@@ -17,7 +18,6 @@ class AddUserPage {
             campoConfirmPassword: this.page.getByRole('textbox').nth(4),
             botaoSave: this.page.getByRole('button', { name: 'Save' }),
             botaoCancel: this.page.getByRole('button', { name: 'Cancel' }),
-        
         };
 }
 
@@ -43,9 +43,14 @@ class AddUserPage {
         await this.elementos.opcaoUserRoleAdmin.click();
     }
 
+    async selecionarUserRoleESS() {
+        await this.elementos.campoUserRole.click();
+        await this.elementos.opcaoUserRoleESS.click();
+    }
+
     async preencherEmployeeName(employeeName) {
         await this.elementos.campoEmployeeName.fill(employeeName);
-        await this.page.getByText(employeeName).click();
+        await this.page.getByText(employeeName).first().click();
     }
 
     async selecionarStatusEnabled() {
@@ -71,7 +76,10 @@ class AddUserPage {
     }
     
     async clicarBotaoSave() {
-        await this.elementos.botaoSave.click();
+        await Promise.all([
+            this.page.waitForURL('**/admin/viewSystemUsers'),
+            this.elementos.botaoSave.click(),
+        ]);
     }
 
     async clicarBotaoCancel() {

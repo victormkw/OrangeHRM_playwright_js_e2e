@@ -57,3 +57,13 @@ Funcionalidade: Gestão Administrativa de Usuários e Configurações no OrangeH
     Quando o usuário seleciona o status "Enabled"
     E clica no botão "Search"
     Então a tabela deve exibir apenas usuários ativos
+
+  Cenário: Excluir múltiplos usuários selecionados
+    Quando o usuário realiza o cadastro de dois usuários com sucesso
+    E realiza a busca pelos usuários cadastrados
+    E seleciona todos os usuários na tabela
+    E clica no botão "Delete Selected"
+    E confirma a exclusão
+    Então deverá ser exibida uma mensagem de sucesso indicando que o usuário foi deletado
+
+  
