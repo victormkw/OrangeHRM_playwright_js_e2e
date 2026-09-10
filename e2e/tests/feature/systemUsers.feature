@@ -1,9 +1,10 @@
-# language: pt 
+# language: pt
 Funcionalidade: Gestão Administrativa de Usuários e Configurações no OrangeHRM
 
   Contexto: que eu acesse a página de login
     Dado que o usuário está logado como Administrador
     E navega até a tela "Admin User Management"
+@foco 
 
   Cenário: Criar um novo usuário com sucesso
     Quando o usuário clica no botão "Add"
@@ -65,5 +66,3 @@ Funcionalidade: Gestão Administrativa de Usuários e Configurações no OrangeH
     E clica no botão "Delete Selected"
     E confirma a exclusão
     Então deverá ser exibida uma mensagem de sucesso indicando que o usuário foi deletado
-
-  

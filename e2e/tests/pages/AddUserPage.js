@@ -76,6 +76,10 @@ class AddUserPage {
     }
     
     async clicarBotaoSave() {
+        await this.elementos.botaoSave.click();
+    }
+    
+    async clicarBotaoSaveLoop() {
         await Promise.all([
             this.page.waitForURL('**/admin/viewSystemUsers'),
             this.elementos.botaoSave.click(),
