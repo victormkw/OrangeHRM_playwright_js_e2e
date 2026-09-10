@@ -11,18 +11,22 @@ class SystemUsersPage {
             campoUserRoleSystemUsers: this.page.getByText('-- Select --').first(),
             campoEmployeeNameSystemUsers: this.page.getByRole('textbox', { name: 'Type for hints...' }),
             campoStatusSystemUsers: this.page.locator('div:nth-child(4) > .oxd-input-group > div:nth-child(2) > .oxd-select-wrapper > .oxd-select-text'),
+            opcaoStatusDisabled: this.page.getByRole('option', { name: 'Disabled' }),
             botaoSearchSystemUsers: this.page.getByRole('button', { name: 'Search' }),
             mensagemUsuarioCriado: this.page.getByText('Successfully Saved'),
             mensagemUsuarioEditado: this.page.getByText('Successfully Updated'),
             mensagemUsuarioExcluido: this.page.getByText('Successfully Deleted'),
             botaoYesDelete: this.page.getByText('Yes, Delete'),
-            botaoNoDelete: this.page.getByRole('button', { name: 'No, Cancel' }),
-
+            botaoNoDelete: this.page.getByText('No, Cancel'),
+            botaoDeleteSelected: this.page.getByText('Delete Selected'),
         };
 }
 
     async clicarBotaoAdd() {
-        await this.elementos.botaoAdd.click();
+        await Promise.all([
+            this.page.waitForURL('**/admin/saveSystemUser'),
+            this.elementos.botaoAdd.click(),
+        ]);
     }
 
     async cadastrarUsuario() {
@@ -100,6 +104,11 @@ class SystemUsersPage {
         await this.elementos.opcaoStatusEnabled.click();
     }
 
+    async preencherStatusDisabledSystemUsers() {
+        await this.elementos.campoStatusSystemUsers.click();
+        await this.elementos.opcaoStatusDisabled.click();
+    }
+
     async clicarBotaoSearchSystemUsers() {
         await this.elementos.botaoSearchSystemUsers.click();
     }
@@ -114,6 +123,14 @@ class SystemUsersPage {
 
     async clicarBotaoYesDelete() {
         await this.elementos.botaoYesDelete.click();
+    }
+
+    async selecionarTodosUsuarios() {
+        await this.page.locator('.oxd-icon.bi-check').first().click();
+    }
+
+    async clicarBotaoDeleteSelected() {
+        await this.elementos.botaoDeleteSelected.click();
     }
 
     async clicarBotaoNoDelete() {
