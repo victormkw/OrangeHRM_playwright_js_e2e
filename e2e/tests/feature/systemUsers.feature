@@ -4,7 +4,6 @@ Funcionalidade: Gestão Administrativa de Usuários e Configurações no OrangeH
   Contexto: que eu acesse a página de login
     Dado que o usuário está logado como Administrador
     E navega até a tela "Admin User Management"
-@foco 
 
   Cenário: Criar um novo usuário com sucesso
     Quando o usuário clica no botão "Add"
