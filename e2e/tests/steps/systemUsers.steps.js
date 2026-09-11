@@ -10,7 +10,6 @@ Given ('navega até a tela "Admin User Management"', async function () {
 });
   
 Given('o usuário clica no botão "Add"', async function () {
-  
   await this.systemUsersPage.clicarBotaoAdd();
 });
 
@@ -73,9 +72,12 @@ Then('a tabela deve estar vazia', async function () {
 When('o usuário busca por um usuário cadastrado', async function () {
   await this.systemUsersPage.preencherUsernameSystemUsers('teste');
   await this.systemUsersPage.clicarBotaoSearchSystemUsers();
+  await this.page.getByText('teste').isVisible();
+
 });
 
 When('clica no botão "Edit" do usuário selecionado', async function () {
+  await this.page.getByText('teste').isVisible();
   await this.systemUsersPage.clicarBotaoEdit();
 });
 
@@ -84,6 +86,7 @@ When('altera uma informação válida do cadastro', async function () {
 });
 
 When('clica no botão "Delete" do usuário selecionado', async function () {
+  await this.page.getByText('teste').isVisible();
   await this.systemUsersPage.clicarBotaoDelete();
 });
 
@@ -141,4 +144,36 @@ Then('a tabela deve exibir apenas usuários com a role selecionada', async funct
 
 Then('a tabela deve exibir apenas usuários ativos', async function () {
   await expect(this.page.getByRole('table')).toContainText('Enabled');
+});
+
+When('o usuário realiza o cadastro de dois usuários com sucesso', async function () {
+    for (let i = 1; i <= 2; i++) {
+    await this.systemUsersPage.clicarBotaoAdd();
+    await this.AddUserPage.selecionarUserRoleESS();
+    await this.AddUserPage.preencherEmployeeName('Christopher Mcmillan');
+    await this.AddUserPage.selecionarStatusDisabled();
+    await this.AddUserPage.preencherUsername('user teste ' + i);
+    await this.AddUserPage.preencherPassword('teste123');
+    await this.AddUserPage.preencherConfirmPassword('teste123');
+    await this.AddUserPage.clicarBotaoSaveLoop();
+    }
+});
+
+When('realiza a busca pelos usuários cadastrados', async function () {
+    await this.systemUsersPage.preencherStatusDisabledSystemUsers();
+    await this.systemUsersPage.clicarBotaoSearchSystemUsers();
+});
+
+When('seleciona todos os usuários na tabela', async function () {
+  await this.systemUsersPage.selecionarTodosUsuarios();
+});
+
+When('clica no botão "Delete Selected"', async function () {
+  await this.systemUsersPage.clicarBotaoDeleteSelected();
+  //await this.systemUsersPage.elemento.clicarBotaoDelete.click();
+});
+
+Then('deverá ser exibida uma mensagem de sucesso indicando que os usuários foram excluídos com sucesso', async function () {
+  await this.systemUsersPage.clicarBotaoYesDelete();
+  await expect(this.page.getByText('Successfully Deleted').first()).toBeVisible();
 });
