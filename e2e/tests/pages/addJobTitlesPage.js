@@ -1,4 +1,4 @@
-class AddJobTitlesPage {
+class addJobTitlesPage {
   constructor(page) {
     this.page = page;
     this.elementos = {
@@ -33,4 +33,4 @@ class AddJobTitlesPage {
   }
 }
 
-module.exports = AddJobTitlesPage;
+module.exports = addJobTitlesPage;
